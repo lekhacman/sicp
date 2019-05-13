@@ -19,6 +19,6 @@
 
 (define (fExp b n)
   (cond ((= n 0) 1)
-        ((isEven n) (square (fExp b (/ n 2))))
+        ((isEven n) (fExp (square b) (/ n 2)))
         (else (* b (fExp b (- n 1))))))
 (fExp 2 10)
