@@ -4,14 +4,21 @@
   (if (= n 0)
       1
       (* x (expR x (- n 1)))))
-(expR 2 10)
 
 (define (exp x n)
-  (define (iter acc a i)
-    (if (= i 0)
-        acc
-        (iter (* acc a)
-              a
-              (- i 1))))
-  (iter 1 x n))
-(exp 2 10)
+  (define (newIter a)
+    (define (iter acc i)
+      (if (= i 0)
+          acc
+          (iter (* acc a) (- i 1))))
+    iter)
+  ((newIter x) 1 n))
+
+(define (square n) (* n n))
+(define (isEven x) (= (remainder x 2) 0))
+
+(define (fExp b n)
+  (cond ((= n 0) 1)
+        ((isEven n) (square (fExp b (/ n 2))))
+        (else (* b (fExp b (- n 1))))))
+(fExp 2 10)
