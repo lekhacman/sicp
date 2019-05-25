@@ -1,8 +1,12 @@
 #lang scheme
 
-(define (gcd a b)
-  (if (= b 0)
-      a
-      (gcd b (remainder a b))))
+(module myMath racket
+  (provide gcd)
+  (define (gcd a b)
+    (if (= b 0)
+        a
+        (gcd b (remainder a b)))))
 
+#|
 (gcd 206 40)
+|#
