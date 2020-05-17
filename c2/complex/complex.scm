@@ -54,7 +54,13 @@
 (define (polar? complex)
     (= "polar" (type-tag complex)))
 
-; Complex generic selectors
+; Complex arithmetic package
+(define (make-complex-from-real-imag x y)
+    (make-rectangular-z x y))
+
+(define (make-complex-from-mag-ang r a)
+    (make-polar-z r a))
+
 (define (real complex)
     (cond ((rectangular? complex) 
                 (rec-real complex))
@@ -82,3 +88,24 @@
         ((polar? complex) 
             (pol-angle complex))
         (else (error "Unknown type: angle" complex))))
+
+; Programs that use complex number
+(define (add-complex z1 z2)
+    (make-complex-from-real-imag 
+        (+ (real z1) (real z2))
+        (+ (imagine z1) (imagine z2))))
+
+(define (sub-complex z1 z2)
+    (make-complex-from-real-imag 
+        (- (real z1) (real z2))
+        (- (imagine z1) (imagine z2))))
+
+(define (mul-complex z1 z2)
+    (make-complex-from-mag-ang 
+        (* (magnitude z1) (magnitude z2))
+        (+ (angle z1) (angle z2))))
+
+(define (div-complex z1 z2)
+    (make-complex-from-mag-ang 
+        (/ (magnitude z1) (magnitude z2))
+        (- (angle z1) (angle z2))))
